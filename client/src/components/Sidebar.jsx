@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const memberLinks = [
   { to: "/dashboard",     icon: "🏠", label: "Dashboard" },
@@ -74,6 +75,7 @@ const s = {
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
+  const { dark, toggle } = useTheme();
   const navigate = useNavigate();
   const links = linkMap[user?.role] || memberLinks;
 
@@ -102,7 +104,12 @@ const Sidebar = () => {
           <div style={s.name}>{user?.name}</div>
           <div style={s.role}>{user?.role}</div>
         </div>
-        <button style={s.logout} onClick={handleLogout} title="Logout">⏻</button>
+        <button onClick={toggle} title={dark ? "Light mode" : "Dark mode"}
+          style={{ marginLeft: "auto", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: 8,
+            color: "#fff", cursor: "pointer", fontSize: 16, padding: "5px 8px" }}>
+          {dark ? "☀️" : "🌙"}
+        </button>
+        <button style={{ ...s.logout, marginLeft: 6 }} onClick={handleLogout} title="Logout">⏻</button>
       </div>
     </aside>
   );
