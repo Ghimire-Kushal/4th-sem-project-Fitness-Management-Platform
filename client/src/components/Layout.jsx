@@ -1,12 +1,26 @@
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => (
-  <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-page)", fontFamily: "Segoe UI, sans-serif" }}>
-    <Sidebar />
-    <main style={{ marginLeft: 220, flex: 1, padding: "32px", minHeight: "100vh" }}>
-      {children}
-    </main>
-  </div>
-);
+const Layout = ({ children }) => {
+  const [sideOpen, setSideOpen] = useState(false);
+
+  return (
+    <div className="layout-shell">
+      {/* Mobile-only top bar */}
+      <div className="mobile-topbar">
+        <button className="hamburger" onClick={() => setSideOpen(true)} aria-label="Open menu">
+          ☰
+        </button>
+        <span className="mobile-topbar-brand">🏋️ Fitness Platform</span>
+      </div>
+
+      <Sidebar open={sideOpen} onClose={() => setSideOpen(false)} />
+
+      <main className="layout-main">
+        {children}
+      </main>
+    </div>
+  );
+};
 
 export default Layout;

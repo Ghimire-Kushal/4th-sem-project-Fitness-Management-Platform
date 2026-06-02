@@ -1,0 +1,122 @@
+/* ── Responsive grid utility classes ── */
+.r-grid-4  { display: grid; grid-template-columns: repeat(4, 1fr); }
+.r-grid-3  { display: grid; grid-template-columns: repeat(3, 1fr); }
+.r-grid-2  { display: grid; grid-template-columns: repeat(2, 1fr); }
+.r-grid-3-2 { display: grid; grid-template-columns: 3fr 2fr; }
+.r-grid-2-3 { display: grid; grid-template-columns: 2fr 3fr; }
+.r-grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; }
+.r-grid-ex  { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+
+/* Filter / tab button rows — wrap on small screens */
+.r-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Scrollable table container */
+.r-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.r-table-wrap table { min-width: 560px; }
+
+/* ── Layout shell ── */
+.layout-shell { display: flex; min-height: 100vh; background: var(--bg-page); font-family: "Segoe UI", sans-serif; }
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #1e1b4b;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  transition: transform 0.25s ease;
+}
+
+/* Main content offset */
+.layout-main {
+  margin-left: 220px;
+  flex: 1;
+  padding: 32px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Mobile top bar (hidden on desktop) */
+.mobile-topbar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #1e1b4b;
+  z-index: 400;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+}
+.mobile-topbar-brand { color: #fff; font-weight: 700; font-size: 15px; flex: 1; }
+.hamburger {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 6px;
+  line-height: 1;
+  border-radius: 6px;
+}
+.hamburger:hover { background: rgba(255,255,255,0.12); }
+
+/* Sidebar overlay backdrop */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 299;
+}
+
+/* ── Tablet (769px – 1024px) ── */
+@media (max-width: 1024px) {
+  .r-grid-4  { grid-template-columns: repeat(2, 1fr); }
+  .r-grid-3  { grid-template-columns: repeat(2, 1fr); }
+  .r-grid-3-2 { grid-template-columns: 1fr; }
+  .r-grid-2-3 { grid-template-columns: 1fr; }
+  .r-grid-2-1 { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  /* Show top bar, hide sidebar by default */
+  .mobile-topbar { display: flex; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.sidebar-open { transform: translateX(0); }
+  .sidebar-backdrop.sidebar-open { display: block; }
+
+  /* Push main content down for the top bar, remove left margin */
+  .layout-main {
+    margin-left: 0;
+    padding: 16px;
+    padding-top: 72px; /* 56px topbar + 16px gap */
+  }
+
+  /* Grids collapse to 1 column */
+  .r-grid-4  { grid-template-columns: repeat(2, 1fr); }
+  .r-grid-3  { grid-template-columns: 1fr; }
+  .r-grid-2  { grid-template-columns: 1fr; }
+  .r-grid-3-2 { grid-template-columns: 1fr; }
+  .r-grid-2-3 { grid-template-columns: 1fr; }
+  .r-grid-2-1 { grid-template-columns: 1fr; }
+  .r-grid-ex  { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Small mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .r-grid-4 { grid-template-columns: 1fr 1fr; }
+  .layout-main { padding: 12px; padding-top: 68px; }
+}
+
+/* ── Cross-browser base resets ── */
+*, *::before, *::after { box-sizing: border-box; }
+img, video { max-width: 100%; height: auto; }
+input, select, textarea, button { font-family: inherit; }

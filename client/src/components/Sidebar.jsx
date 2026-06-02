@@ -34,17 +34,13 @@ const adminLinks = [
 const linkMap = { member: memberLinks, trainer: trainerLinks, admin: adminLinks };
 
 const s = {
-  sidebar: {
-    width: 220, minHeight: "100vh", background: "#1e1b4b",
-    display: "flex", flexDirection: "column", padding: "0",
-    position: "fixed", left: 0, top: 0, zIndex: 200,
-  },
   brand: {
-    padding: "24px 20px 20px", borderBottom: "1px solid rgba(255,255,255,0.1)",
+    padding: "24px 20px 20px",
+    borderBottom: "1px solid rgba(255,255,255,0.1)",
     color: "#fff", fontWeight: 700, fontSize: 16, fontFamily: "Segoe UI",
     display: "flex", alignItems: "center", gap: 10,
   },
-  nav: { flex: 1, padding: "16px 0" },
+  nav: { flex: 1, padding: "16px 0", overflowY: "auto" },
   link: {
     display: "flex", alignItems: "center", gap: 10,
     padding: "11px 20px", color: "rgba(255,255,255,0.65)",
@@ -67,13 +63,9 @@ const s = {
   },
   name: { color: "#fff", fontSize: 13, fontWeight: 600, fontFamily: "Segoe UI" },
   role: { color: "rgba(255,255,255,0.5)", fontSize: 11, fontFamily: "Segoe UI" },
-  logout: {
-    marginLeft: "auto", background: "none", border: "none",
-    color: "rgba(255,255,255,0.5)", cursor: "pointer", fontSize: 18,
-  },
 };
 
-const Sidebar = () => {
+const Sidebar = ({ open, onClose }) => {
   const { user, logout } = useAuth();
   const { dark, toggle } = useTheme();
   const navigate = useNavigate();
@@ -81,37 +73,52 @@ const Sidebar = () => {
 
   const handleLogout = () => { logout(); navigate("/login"); };
 
+  const handleLinkClick = () => {
+    if (onClose) onClose();
+  };
+
   return (
-    <aside style={s.sidebar}>
-      <div style={s.brand}>
-        <span>🏋️</span> Fitness Platform
-      </div>
-      <nav style={s.nav}>
-        {links.map((l) => (
-          <NavLink
-            key={l.to}
-            to={l.to}
-            end={l.to === "/dashboard" || l.to === "/trainer" || l.to === "/admin"}
-            style={({ isActive }) => ({ ...s.link, ...(isActive ? s.activeLink : {}) })}
-          >
-            <span>{l.icon}</span> {l.label}
-          </NavLink>
-        ))}
-      </nav>
-      <div style={s.bottom}>
-        <div style={s.avatar}>{user?.name?.[0]?.toUpperCase()}</div>
-        <div>
-          <div style={s.name}>{user?.name}</div>
-          <div style={s.role}>{user?.role}</div>
+    <>
+      {/* Backdrop overlay for mobile */}
+      <div
+        className={`sidebar-backdrop${open ? " sidebar-open" : ""}`}
+        onClick={onClose}
+      />
+
+      <aside className={`sidebar${open ? " sidebar-open" : ""}`}>
+        <div style={s.brand}>
+          <span>🏋️</span> Fitness Platform
         </div>
-        <button onClick={toggle} title={dark ? "Light mode" : "Dark mode"}
-          style={{ marginLeft: "auto", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: 8,
-            color: "#fff", cursor: "pointer", fontSize: 16, padding: "5px 8px" }}>
-          {dark ? "☀️" : "🌙"}
-        </button>
-        <button style={{ ...s.logout, marginLeft: 6 }} onClick={handleLogout} title="Logout">⏻</button>
-      </div>
-    </aside>
+        <nav style={s.nav}>
+          {links.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              end={l.to === "/dashboard" || l.to === "/trainer" || l.to === "/admin"}
+              style={({ isActive }) => ({ ...s.link, ...(isActive ? s.activeLink : {}) })}
+              onClick={handleLinkClick}
+            >
+              <span>{l.icon}</span> {l.label}
+            </NavLink>
+          ))}
+        </nav>
+        <div style={s.bottom}>
+          <div style={s.avatar}>{user?.name?.[0]?.toUpperCase()}</div>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ ...s.name, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user?.name}</div>
+            <div style={s.role}>{user?.role}</div>
+          </div>
+          <button onClick={toggle} title={dark ? "Light mode" : "Dark mode"}
+            style={{ marginLeft: "auto", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: 8,
+              color: "#fff", cursor: "pointer", fontSize: 16, padding: "5px 8px", flexShrink: 0 }}>
+            {dark ? "☀️" : "🌙"}
+          </button>
+          <button
+            style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", cursor: "pointer", fontSize: 18, marginLeft: 6, flexShrink: 0 }}
+            onClick={handleLogout} title="Logout">⏻</button>
+        </div>
+      </aside>
+    </>
   );
 };
 
