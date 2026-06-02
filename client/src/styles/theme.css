@@ -1,39 +1,50 @@
+/* Fallback CSS vars — ThemeContext.jsx sets these directly via JS on mount */
 :root {
-  --bg-page:        #f1f5f9;
-  --bg-card:        #ffffff;
-  --bg-inset:       #f8fafc;
-  --bg-muted:       #f1f5f9;
-  --bg-input:       #fafafa;
-  --bg-unread:      #f8f9ff;
-  --text-primary:   #1e293b;
-  --text-secondary: #475569;
-  --text-muted:     #64748b;
+  --bg-page:          #f1f5f9;
+  --bg-card:          #ffffff;
+  --bg-inset:         #f8fafc;
+  --bg-muted:         #f1f5f9;
+  --bg-input:         #fafafa;
+  --bg-unread:        #f8f9ff;
+  --text-primary:     #1e293b;
+  --text-secondary:   #475569;
+  --text-muted:       #64748b;
   --text-placeholder: #94a3b8;
-  --text-label:     #374151;
-  --text-input:     #111827;
-  --text-title:     #1a1a2e;
-  --text-subtitle:  #6b7280;
-  --border:         #e2e8f0;
-  --input-border:   #e5e7eb;
+  --text-label:       #374151;
+  --text-input:       #111827;
+  --text-title:       #1a1a2e;
+  --text-subtitle:    #6b7280;
+  --border:           #e2e8f0;
+  --input-border:     #e5e7eb;
 }
 
 [data-theme="dark"] {
-  --bg-page:        #0f172a;
-  --bg-card:        #1e293b;
-  --bg-inset:       #0f172a;
-  --bg-muted:       #334155;
-  --bg-input:       #1e293b;
-  --bg-unread:      #1e2a4a;
-  --text-primary:   #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted:     #94a3b8;
+  --bg-page:          #0f172a;
+  --bg-card:          #1e293b;
+  --bg-inset:         #0f172a;
+  --bg-muted:         #334155;
+  --bg-input:         #0f172a;
+  --bg-unread:        #1e2a4a;
+  --text-primary:     #f1f5f9;
+  --text-secondary:   #cbd5e1;
+  --text-muted:       #94a3b8;
   --text-placeholder: #64748b;
-  --text-label:     #cbd5e1;
-  --text-input:     #f1f5f9;
-  --text-title:     #f1f5f9;
-  --text-subtitle:  #94a3b8;
-  --border:         #334155;
-  --input-border:   #475569;
+  --text-label:       #cbd5e1;
+  --text-input:       #f1f5f9;
+  --text-title:       #f1f5f9;
+  --text-subtitle:    #94a3b8;
+  --border:           #334155;
+  --input-border:     #475569;
+  color-scheme: dark;
 }
 
-* { transition: background-color 0.2s ease, color 0.1s ease, border-color 0.2s ease; }
+/* Native form controls (date/time/select) pick up color-scheme automatically */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  color-scheme: dark;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.1s ease;
+}
