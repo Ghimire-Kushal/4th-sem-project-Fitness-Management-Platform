@@ -120,3 +120,37 @@
 *, *::before, *::after { box-sizing: border-box; }
 img, video { max-width: 100%; height: auto; }
 input, select, textarea, button { font-family: inherit; }
+
+/* ── Public Dashboard (no sidebar) navbar ── */
+@media (max-width: 768px) {
+  /* Shrink public dashboard navbar padding */
+  nav[style*="padding: 0 32px"],
+  nav[style*="padding:0 32px"] {
+    padding: 0 16px !important;
+  }
+  /* Shrink public dashboard main padding */
+  main[style*="padding: 32px"] {
+    padding: 16px !important;
+  }
+}
+
+/* ── Prevent horizontal overflow on the page ── */
+html, body { overflow-x: hidden; }
+
+/* ── Flex-wrap fix for tab/filter bars still using inline flex ── */
+@media (max-width: 600px) {
+  div[style*="display: flex"][style*="gap: 8px"],
+  div[style*="display:flex"][style*="gap:8px"] {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── Tables: prevent text overflow in cells on very small screens ── */
+@media (max-width: 768px) {
+  td, th { word-break: break-word; }
+}
+
+/* ── Workout exercise grid: 2 items on mobile ── */
+@media (max-width: 640px) {
+  .r-grid-ex { grid-template-columns: 1fr 1fr; }
+}
