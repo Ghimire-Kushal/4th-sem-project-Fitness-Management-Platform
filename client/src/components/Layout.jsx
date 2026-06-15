@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <button className="hamburger" onClick={() => setSideOpen(true)} aria-label="Open menu">
           ☰
         </button>
-        <span className="mobile-topbar-brand">🏋️ Fitness Platform</span>
+        <span className="mobile-topbar-brand">Fitness Platform</span>
       </div>
 
       <Sidebar open={sideOpen} onClose={() => setSideOpen(false)} />

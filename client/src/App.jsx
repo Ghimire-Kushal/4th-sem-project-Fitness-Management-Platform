@@ -35,9 +35,10 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/"    element={<Register />} />
+          <Route path="/"    element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/unauthorized" element={<div style={{ padding: 40, fontFamily: "Segoe UI" }}>403 – Access Denied</div>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/unauthorized" element={<div style={{ padding: 40, fontFamily: "Segoe UI", background: "var(--bg-page)", minHeight: "100vh", color: "var(--text-primary)" }}>403 – Access Denied</div>} />
 
           {/* Member routes */}
           <Route path="/dashboard"     element={<ProtectedRoute roles={["member"]}><MemberDashboard /></ProtectedRoute>} />

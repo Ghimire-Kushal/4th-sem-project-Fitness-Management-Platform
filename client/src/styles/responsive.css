@@ -21,7 +21,8 @@
 .sidebar {
   width: 220px;
   min-height: 100vh;
-  background: #1e1b4b;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -48,24 +49,25 @@
   left: 0;
   right: 0;
   height: 56px;
-  background: #1e1b4b;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
   z-index: 400;
   align-items: center;
   padding: 0 16px;
   gap: 12px;
 }
-.mobile-topbar-brand { color: #fff; font-weight: 700; font-size: 15px; flex: 1; }
+.mobile-topbar-brand { color: var(--text-primary); font-weight: 600; font-size: 15px; flex: 1; }
 .hamburger {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 22px;
   cursor: pointer;
   padding: 4px 6px;
   line-height: 1;
   border-radius: 6px;
 }
-.hamburger:hover { background: rgba(255,255,255,0.12); }
+.hamburger:hover { background: var(--bg-muted); }
 
 /* Sidebar overlay backdrop */
 .sidebar-backdrop {

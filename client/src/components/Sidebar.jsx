@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import Logo from "./Logo";
 
 const memberLinks = [
   { to: "/dashboard",     icon: "🏠", label: "Dashboard" },
@@ -35,34 +36,34 @@ const linkMap = { member: memberLinks, trainer: trainerLinks, admin: adminLinks 
 
 const s = {
   brand: {
-    padding: "24px 20px 20px",
-    borderBottom: "1px solid rgba(255,255,255,0.1)",
-    color: "#fff", fontWeight: 700, fontSize: 16, fontFamily: "Segoe UI",
+    padding: "20px",
+    borderBottom: "1px solid var(--border)",
+    color: "var(--text-primary)", fontWeight: 700, fontSize: 16, fontFamily: "Segoe UI",
     display: "flex", alignItems: "center", gap: 10,
   },
   nav: { flex: 1, padding: "16px 0", overflowY: "auto" },
   link: {
     display: "flex", alignItems: "center", gap: 10,
-    padding: "11px 20px", color: "rgba(255,255,255,0.65)",
+    padding: "11px 20px", color: "var(--text-secondary)",
     textDecoration: "none", fontSize: 14, fontFamily: "Segoe UI",
     fontWeight: 500, transition: "all 0.15s",
   },
   activeLink: {
-    color: "#fff", background: "rgba(255,255,255,0.12)",
-    borderRight: "3px solid #a5b4fc",
+    color: "var(--text-primary)", background: "var(--bg-muted)",
+    borderRight: "3px solid var(--text-primary)",
   },
   bottom: {
-    padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.1)",
+    padding: "16px 20px", borderTop: "1px solid var(--border)",
     display: "flex", alignItems: "center", gap: 10,
   },
   avatar: {
     width: 34, height: 34, borderRadius: "50%",
-    background: "linear-gradient(135deg,#667eea,#764ba2)",
+    background: "var(--bg-muted)",
     display: "flex", alignItems: "center", justifyContent: "center",
-    color: "#fff", fontWeight: 700, fontSize: 13, flexShrink: 0,
+    color: "var(--text-primary)", fontWeight: 700, fontSize: 13, flexShrink: 0,
   },
-  name: { color: "#fff", fontSize: 13, fontWeight: 600, fontFamily: "Segoe UI" },
-  role: { color: "rgba(255,255,255,0.5)", fontSize: 11, fontFamily: "Segoe UI" },
+  name: { color: "var(--text-primary)", fontSize: 13, fontWeight: 600, fontFamily: "Segoe UI" },
+  role: { color: "var(--text-muted)", fontSize: 11, fontFamily: "Segoe UI" },
 };
 
 const Sidebar = ({ open, onClose }) => {
@@ -87,7 +88,8 @@ const Sidebar = ({ open, onClose }) => {
 
       <aside className={`sidebar${open ? " sidebar-open" : ""}`}>
         <div style={s.brand}>
-          <span>🏋️</span> Fitness Platform
+          <Logo size={32} />
+          <span>Fitness Platform</span>
         </div>
         <nav style={s.nav}>
           {links.map((l) => (
@@ -109,12 +111,12 @@ const Sidebar = ({ open, onClose }) => {
             <div style={s.role}>{user?.role}</div>
           </div>
           <button onClick={toggle} title={dark ? "Light mode" : "Dark mode"}
-            style={{ marginLeft: "auto", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: 8,
-              color: "#fff", cursor: "pointer", fontSize: 16, padding: "5px 8px", flexShrink: 0 }}>
-            {dark ? "☀️" : "🌙"}
+            style={{ marginLeft: "auto", background: "var(--bg-muted)", border: "1px solid var(--border)", borderRadius: 8,
+              color: "var(--text-primary)", cursor: "pointer", fontSize: 14, padding: "6px 10px", flexShrink: 0 }}>
+            Theme
           </button>
           <button
-            style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", cursor: "pointer", fontSize: 18, marginLeft: 6, flexShrink: 0 }}
+            style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: 18, marginLeft: 6, flexShrink: 0 }}
             onClick={handleLogout} title="Logout">⏻</button>
         </div>
       </aside>
