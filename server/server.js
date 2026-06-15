@@ -2,9 +2,30 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const User = require("./models/User");
 
 const app = express();
-connectDB();
+
+const ensureDefaultAdmin = async () => {
+  const existing = await User.findOne({ username: "admin" });
+  if (existing) return;
+  const byEmail = await User.findOne({ email: "admin@fitness.com" });
+  if (byEmail) {
+    byEmail.username = "admin";
+    byEmail.role = "admin";
+    byEmail.isActive = true;
+    await byEmail.save();
+    return;
+  }
+  await User.create({
+    name: "Admin",
+    username: "admin",
+    email: "admin@fitness.com",
+    password: "admin123",
+    role: "admin",
+    isActive: true,
+  });
+};
 
 app.use(cors({
   origin: process.env.CLIENT_URL || "*",
@@ -25,4 +46,11 @@ app.use("/api/notifications", require("./routes/notifications"));
 app.use("/api/admin",       require("./routes/admin"));
 
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const start = async () => {
+  await connectDB();
+  await ensureDefaultAdmin();
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+};
+
+start();

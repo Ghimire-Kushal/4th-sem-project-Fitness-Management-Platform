@@ -6,7 +6,7 @@ const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
 const sanitize = (u) => ({
-  _id: u._id, name: u.name, email: u.email, role: u.role,
+  _id: u._id, name: u.name, username: u.username, email: u.email, role: u.role,
   phone: u.phone, address: u.address, age: u.age, gender: u.gender,
   isActive: u.isActive, assignedTrainer: u.assignedTrainer, createdAt: u.createdAt,
 });
@@ -36,11 +36,14 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password)
-      return res.status(400).json({ message: "Please enter email and password" });
+    const { email, username, password } = req.body;
+    const loginId = (username || email || "").toLowerCase().trim();
+    if (!loginId || !password)
+      return res.status(400).json({ message: "Please enter username/email and password" });
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      $or: [{ email: loginId }, { username: loginId }],
+    });
     if (!user || !(await user.matchPassword(password)))
       return res.status(401).json({ message: "Invalid email or password" });
     if (!user.isActive)

@@ -30,7 +30,7 @@ async function clear() {
 async function seedUsers() {
   const users = [
     // Admin
-    { name: "Admin User", email: "admin@fitness.com", password: await hash("admin123"), role: "admin", phone: "9800000001", isActive: true },
+    { name: "Admin", username: "admin", email: "admin@fitness.com", password: await hash("admin123"), role: "admin", phone: "9800000001", isActive: true },
 
     // 10 Trainers
     { name: "Alex Johnson", email: "alex@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000101", age: 32, gender: "male", isActive: true },
