@@ -86,3 +86,19 @@ exports.toggleUserStatus = async (req, res) => {
     res.json({ message: `User ${user.isActive ? "activated" : "deactivated"}`, isActive: user.isActive });
   } catch (err) { res.status(500).json({ message: err.message }); }
 };
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    if (user.role === "admin")
+      return res.status(400).json({ message: "Admin users cannot be removed here" });
+
+    if (user.role === "trainer") {
+      await User.updateMany({ assignedTrainer: user._id }, { $unset: { assignedTrainer: "" } });
+    }
+
+    await user.deleteOne();
+    res.json({ message: `${user.role === "trainer" ? "Trainer" : "User"} removed successfully` });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+};

@@ -7,5 +7,6 @@ router.get("/users",              protect, allow("admin"), ctrl.getUsers);
 router.post("/users",             protect, allow("admin"), ctrl.createUser);
 router.put("/users/:id",          protect, allow("admin"), ctrl.updateUser);
 router.put("/users/:id/toggle",   protect, allow("admin"), ctrl.toggleUserStatus);
+router.delete("/users/:id",       protect, allow("admin"), ctrl.deleteUser);
 
 module.exports = router;

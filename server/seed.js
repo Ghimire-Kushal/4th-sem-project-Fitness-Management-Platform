@@ -28,33 +28,43 @@ async function clear() {
 }
 
 async function seedUsers() {
+  const adminUsername = process.env.DEFAULT_ADMIN_USERNAME;
+  const adminEmail = process.env.DEFAULT_ADMIN_EMAIL;
+  const adminPassword = process.env.DEFAULT_ADMIN_PASSWORD;
+  const trainerPassword = process.env.DEMO_TRAINER_PASSWORD;
+  const memberPassword = process.env.DEMO_MEMBER_PASSWORD;
+
+  if (!adminUsername || !adminEmail || !adminPassword || !trainerPassword || !memberPassword) {
+    throw new Error("Set DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_EMAIL, DEFAULT_ADMIN_PASSWORD, DEMO_TRAINER_PASSWORD and DEMO_MEMBER_PASSWORD in server/.env before seeding.");
+  }
+
   const users = [
     // Admin
-    { name: "Admin", username: "admin", email: "admin@fitness.com", password: await hash("admin123"), role: "admin", phone: "9800000001", isActive: true },
+    { name: "Admin", username: adminUsername, email: adminEmail, password: await hash(adminPassword), role: "admin", phone: "9800000001", isActive: true },
 
     // 10 Trainers
-    { name: "Alex Johnson", email: "alex@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000101", age: 32, gender: "male", isActive: true },
-    { name: "Sara Williams", email: "sara@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000102", age: 28, gender: "female", isActive: true },
-    { name: "Mike Chen", email: "mike@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000103", age: 35, gender: "male", isActive: true },
-    { name: "Priya Sharma", email: "priya@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000104", age: 30, gender: "female", isActive: true },
-    { name: "Carlos Rivera", email: "carlos@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000105", age: 27, gender: "male", isActive: true },
-    { name: "Nina Patel", email: "nina@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000106", age: 31, gender: "female", isActive: true },
-    { name: "Tom Brady", email: "tom@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000107", age: 40, gender: "male", isActive: true },
-    { name: "Lisa Kim", email: "lisa@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000108", age: 29, gender: "female", isActive: true },
-    { name: "David Lee", email: "david@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000109", age: 33, gender: "male", isActive: true },
-    { name: "Emma Stone", email: "emma@fitness.com", password: await hash("trainer123"), role: "trainer", phone: "9800000110", age: 26, gender: "female", isActive: true },
+    { name: "Alex Johnson", email: "alex@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000101", age: 32, gender: "male", isActive: true },
+    { name: "Sara Williams", email: "sara@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000102", age: 28, gender: "female", isActive: true },
+    { name: "Mike Chen", email: "mike@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000103", age: 35, gender: "male", isActive: true },
+    { name: "Priya Sharma", email: "priya@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000104", age: 30, gender: "female", isActive: true },
+    { name: "Carlos Rivera", email: "carlos@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000105", age: 27, gender: "male", isActive: true },
+    { name: "Nina Patel", email: "nina@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000106", age: 31, gender: "female", isActive: true },
+    { name: "Tom Brady", email: "tom@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000107", age: 40, gender: "male", isActive: true },
+    { name: "Lisa Kim", email: "lisa@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000108", age: 29, gender: "female", isActive: true },
+    { name: "David Lee", email: "david@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000109", age: 33, gender: "male", isActive: true },
+    { name: "Emma Stone", email: "emma@fitness.com", password: await hash(trainerPassword), role: "trainer", phone: "9800000110", age: 26, gender: "female", isActive: true },
 
     // 10 Members
-    { name: "James Wilson", email: "james@fitness.com", password: await hash("member123"), role: "member", phone: "9800001001", age: 25, gender: "male", address: "123 Main St", isActive: true },
-    { name: "Olivia Brown", email: "olivia@fitness.com", password: await hash("member123"), role: "member", phone: "9800001002", age: 22, gender: "female", address: "456 Oak Ave", isActive: true },
-    { name: "Noah Davis", email: "noah@fitness.com", password: await hash("member123"), role: "member", phone: "9800001003", age: 30, gender: "male", address: "789 Pine Rd", isActive: true },
-    { name: "Ava Martinez", email: "ava@fitness.com", password: await hash("member123"), role: "member", phone: "9800001004", age: 27, gender: "female", address: "321 Elm St", isActive: true },
-    { name: "Liam Anderson", email: "liam@fitness.com", password: await hash("member123"), role: "member", phone: "9800001005", age: 35, gender: "male", address: "654 Maple Dr", isActive: true },
-    { name: "Sophia Taylor", email: "sophia@fitness.com", password: await hash("member123"), role: "member", phone: "9800001006", age: 24, gender: "female", address: "987 Cedar Ln", isActive: true },
-    { name: "Ethan Thomas", email: "ethan@fitness.com", password: await hash("member123"), role: "member", phone: "9800001007", age: 28, gender: "male", address: "147 Birch Blvd", isActive: true },
-    { name: "Isabella Harris", email: "isabella@fitness.com", password: await hash("member123"), role: "member", phone: "9800001008", age: 23, gender: "female", address: "258 Walnut Way", isActive: true },
-    { name: "Mason Clark", email: "mason@fitness.com", password: await hash("member123"), role: "member", phone: "9800001009", age: 31, gender: "male", address: "369 Spruce St", isActive: true },
-    { name: "Mia Lewis", email: "mia@fitness.com", password: await hash("member123"), role: "member", phone: "9800001010", age: 26, gender: "female", address: "741 Willow Ave", isActive: true },
+    { name: "James Wilson", email: "james@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001001", age: 25, gender: "male", address: "123 Main St", isActive: true },
+    { name: "Olivia Brown", email: "olivia@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001002", age: 22, gender: "female", address: "456 Oak Ave", isActive: true },
+    { name: "Noah Davis", email: "noah@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001003", age: 30, gender: "male", address: "789 Pine Rd", isActive: true },
+    { name: "Ava Martinez", email: "ava@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001004", age: 27, gender: "female", address: "321 Elm St", isActive: true },
+    { name: "Liam Anderson", email: "liam@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001005", age: 35, gender: "male", address: "654 Maple Dr", isActive: true },
+    { name: "Sophia Taylor", email: "sophia@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001006", age: 24, gender: "female", address: "987 Cedar Ln", isActive: true },
+    { name: "Ethan Thomas", email: "ethan@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001007", age: 28, gender: "male", address: "147 Birch Blvd", isActive: true },
+    { name: "Isabella Harris", email: "isabella@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001008", age: 23, gender: "female", address: "258 Walnut Way", isActive: true },
+    { name: "Mason Clark", email: "mason@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001009", age: 31, gender: "male", address: "369 Spruce St", isActive: true },
+    { name: "Mia Lewis", email: "mia@fitness.com", password: await hash(memberPassword), role: "member", phone: "9800001010", age: 26, gender: "female", address: "741 Willow Ave", isActive: true },
   ];
 
   const created = await User.insertMany(users);
@@ -290,12 +300,7 @@ async function seedNotifications(members, trainers) {
     await seedNotifications(members, trainers);
 
     console.log("\n=== SEED COMPLETE ===");
-    console.log("\nLogin credentials:");
-    console.log("  Admin:   admin@fitness.com   / admin123");
-    console.log("  Trainer: alex@fitness.com    / trainer123");
-    console.log("  Member:  james@fitness.com   / member123");
-    console.log("\nAll 10 demo trainers use password: trainer123");
-    console.log("All 10 demo members use password:  member123");
+    console.log("\nDemo users created. Passwords were loaded from server/.env.");
   } catch (err) {
     console.error("Seed error:", err);
   } finally {

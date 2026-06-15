@@ -7,11 +7,20 @@ const User = require("./models/User");
 const app = express();
 
 const ensureDefaultAdmin = async () => {
-  const existing = await User.findOne({ username: "admin" });
+  const username = process.env.DEFAULT_ADMIN_USERNAME;
+  const password = process.env.DEFAULT_ADMIN_PASSWORD;
+  const email = process.env.DEFAULT_ADMIN_EMAIL;
+
+  if (!username || !password || !email) {
+    console.warn("Default admin was not created. Set DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD and DEFAULT_ADMIN_EMAIL in server/.env.");
+    return;
+  }
+
+  const existing = await User.findOne({ username });
   if (existing) return;
-  const byEmail = await User.findOne({ email: "admin@fitness.com" });
+  const byEmail = await User.findOne({ email });
   if (byEmail) {
-    byEmail.username = "admin";
+    byEmail.username = username;
     byEmail.role = "admin";
     byEmail.isActive = true;
     await byEmail.save();
@@ -19,9 +28,9 @@ const ensureDefaultAdmin = async () => {
   }
   await User.create({
     name: "Admin",
-    username: "admin",
-    email: "admin@fitness.com",
-    password: "admin123",
+    username,
+    email,
+    password,
     role: "admin",
     isActive: true,
   });
