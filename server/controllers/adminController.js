@@ -6,6 +6,7 @@ const DietPlan = require("../models/DietPlan");
 
 exports.getStats = async (req, res) => {
   try {
+
     const [totalMembers, totalTrainers, totalBookings, activeMembers] = await Promise.all([
       User.countDocuments({ role: "member" }),
       User.countDocuments({ role: "trainer" }),
