@@ -42,6 +42,32 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Fitness Management Platform API is running",
+    api: "/api",
+    frontend: process.env.CLIENT_URL || "http://localhost:5174",
+  });
+});
+
+app.get("/api", (req, res) => {
+  res.json({
+    message: "API is running",
+    routes: [
+      "/api/auth",
+      "/api/users",
+      "/api/memberships",
+      "/api/timeslots",
+      "/api/bookings",
+      "/api/workouts",
+      "/api/diets",
+      "/api/trainers",
+      "/api/notifications",
+      "/api/admin",
+    ],
+  });
+});
+
 // Routes
 app.use("/api/auth",        require("./routes/auth"));
 app.use("/api/users",       require("./routes/users"));

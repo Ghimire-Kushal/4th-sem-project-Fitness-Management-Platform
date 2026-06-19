@@ -1,0 +1,6 @@
+<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fitness Platform">
+  <circle cx="130" cy="130" r="125" fill="#1a1a2e"/>
+  <circle cx="130" cy="130" r="120" fill="none" stroke="#534AB7" stroke-width="2"/>
+  <text x="130" y="138" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#EEEDFE" text-anchor="middle" letter-spacing="2">FIT</text>
+  <text x="130" y="172" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#AFA9EC" text-anchor="middle" letter-spacing="4">PLATFORM</text>
+</svg>
